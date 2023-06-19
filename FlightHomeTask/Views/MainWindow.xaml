@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FlightHomeTask"
+        xmlns:local="clr-namespace:FlightHomeTask" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Background="LightBlue">
     <Canvas>
@@ -14,18 +14,20 @@
         <DataGrid SelectionChanged="ScheduleGrid_SelectionChanged" Background="Transparent" Name="ScheduleGrid"   Canvas.Left="32" Canvas.Top="388" Height="114" Width="266" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.54,2.984"></DataGrid>
 
         <Label Background="LightGoldenrodYellow" FontSize="30" FontWeight="UltraBlack" Content=" Airplane" Canvas.Left="406" Canvas.Top="43" HorizontalAlignment="Left" VerticalAlignment="Center" Width="154"></Label>
-        <DataGrid SelectionChanged="AirplaneGrid_SelectionChanged" Background="Transparent" Name="AirplaneGrid"   Canvas.Left="400" Canvas.Top="115" Height="191" Width="391" HorizontalAlignment="Left" VerticalAlignment="Center"></DataGrid>
+        <DataGrid IsEnabled="{Binding IsSelected,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding AllAirplanes}" SelectedItem="{Binding SelectedAirplan}"  x:Name="airplaneGrid" SelectionChanged="AirplaneGrid_SelectionChanged" Background="Transparent" Canvas.Left="400" Canvas.Top="115" Height="191" Width="391" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SelectedAirplaneCommand}"></i:InvokeCommandAction>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </DataGrid>
 
         <Label Background="LightGoldenrodYellow" FontSize="30" FontWeight="UltraBlack" Content=" Flight Type" Canvas.Left="427" Canvas.Top="321" HorizontalAlignment="Left" VerticalAlignment="Top" Width="197"></Label>
         <ComboBox FontSize="30" Background="Transparent" Width="188" Canvas.Left="427" Canvas.Top="388" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Name="fligthTypeComboBox"></ComboBox>
 
 
-        <Label Background="LightGoldenrodYellow" FontSize="30" FontWeight="UltraBlack" Content=" Pilot info" Canvas.Left="858" Canvas.Top="43" HorizontalAlignment="Left" VerticalAlignment="Top" Width="197"></Label>
-        <Label Background="Transparent" FontSize="30" FontWeight="UltraBlack" Content=" Name" Canvas.Left="858" Canvas.Top="123" HorizontalAlignment="Center" VerticalAlignment="Top" Width="118"></Label>
-        <Label Background="Transparent" FontSize="30" FontWeight="UltraBlack" Content=" Lastname" Canvas.Left="858" Canvas.Top="186" HorizontalAlignment="Left" VerticalAlignment="Center" Width="162"></Label>
-        <TextBox FontWeight="UltraBlack" FontSize="25" Name="pilotNameInfo" Width="148" Canvas.Left="1025" Canvas.Top="131" HorizontalAlignment="Left" Height="34" VerticalAlignment="Center"/>
-        <TextBox FontWeight="UltraBlack" FontSize="25" Name="pilotLastnameInfo" Width="148" Canvas.Left="1025" Canvas.Top="194" HorizontalAlignment="Center" Height="34" VerticalAlignment="Center"></TextBox>
-        <Button Name="purchaseBtn" Command="{Binding Purchase}" FontSize="30" Background="LightGoldenrodYellow" FontWeight="UltraBlack" Canvas.Left="1054" Canvas.Top="375">Purchase</Button>
- 
+
+        <Button Name="purchaseBtn" Click="purchaseBtn_Click" FontSize="30" Background="LightGoldenrodYellow" FontWeight="UltraBlack" Canvas.Left="882" Canvas.Top="43">Purchase</Button>
+
     </Canvas>
 </Window>

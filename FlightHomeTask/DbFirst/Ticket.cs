@@ -24,5 +24,6 @@ namespace FlightHomeTask.DbFirst
         public virtual Citieess Citieess { get; set; }
         public virtual FlightType FlightType { get; set; }
         public virtual SScheduleess SScheduleess { get; set; }
+
     }
 }
